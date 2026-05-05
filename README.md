@@ -56,6 +56,12 @@
 ![[Pasted image 20260505232739.png]]
 ## 📦 Installation:
 
+### 1. Clone the application
+
+```bash
+https://github.com/itsawouki/Partition-Sorter.git
+cd 'partition sorter'
+```
 
 ### 1. install colorama
 
