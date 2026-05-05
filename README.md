@@ -10,11 +10,7 @@
 - [Features](#-features)
 - [Screenshots](#-screenshots)
 - [Installation](#-installation)
-- [Manual Installation](#-manual-installation)
-- [Usage](#-usage)
 - [Dependencies](#-dependencies)
-- [Configuration](#-configuration)
-- [Troubleshooting](#-troubleshooting)
 - [⚠️ IMPORTANT WARNINGS](#️-important-warnings)
 
 ---
