@@ -11,7 +11,7 @@
 - [Screenshots](#-screenshots)
 - [Installation](#-installation)
 - [Dependencies](#-dependencies)
-- [⚠️ IMPORTANT WARNINGS](#️-important-warnings)
+- [ IMPORTANT WARNINGS](#️-important-warnings)
 
 ---
 
@@ -139,7 +139,7 @@ pnsr
 
 ---
 
-## ⚠️ **IMPORTANT WARNINGS**
+## **IMPORTANT WARNINGS**
 
 ### 🚨 **DO NOT DELETE THE APPLICATION FILES**
 
