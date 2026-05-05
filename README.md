@@ -5,13 +5,12 @@
 **Partition Sorter** is a powerful terminal-based file organization tool that automatically sorts files into categorized folders based on their type. Perfect for cleaning up messy drives and organizing your data efficiently.
 
 ---
+
 ## 📋 Table of Contents
 - [Description](#-description)
 - [Features](#-features)
 - [Screenshots](#-screenshots)
 - [Installation](#-installation)
-- [Dependencies](#-dependencies)
-- [IMPORTANT WARNINGS](#️-important-warnings)
 
 ---
 
@@ -138,6 +137,7 @@ pnsr
 ```
 
 ---
+
 
 ## **IMPORTANT WARNINGS**
 
