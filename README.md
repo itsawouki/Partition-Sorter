@@ -53,7 +53,7 @@
 
 ## 📸 Screenshots
 
-![[image.png]] ![[swappy-20260506-002048.png]]
+![App Screenshot](./image.png) ![App Screenshot](./swappy-20260506-002048.png)
 ## 📦 Installation:
 
 ### 1. Clone the application
