@@ -59,11 +59,10 @@
 ### 1. Clone the application
 
 ```bash
-https://github.com/itsawouki/Partition-Sorter.git
-cd 'partition sorter'
+git clone https://github.com/itsawouki/Partition-Sorter.git && cd Partition-Sorter
 ```
 
-### 1. install colorama
+### 2. install colorama
 
 Choose your operating system:
 #### **Arch Linux**
@@ -110,7 +109,7 @@ sudo pip3 install colorama
 pipx install colorama
 ```
 
-### 2. Shell Setup
+### 3. Shell Setup
 
 The `pnsr` command should work immediately. If not, add this to your shell config:
 #### **For Bash users** (~/.bashrc)
