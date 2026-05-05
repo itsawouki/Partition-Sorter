@@ -41,15 +41,18 @@
 
 ---
 
-📁 File Categories
-Category	File Types
-Videos	.mp4, .mkv, .avi, .mov, .wmv, .flv, .webm + 20+ more
-Audio	.mp3, .wav, .flac, .aac, .ogg, .m4a + 20+ more
-Photos	.jpg, .jpeg, .png, .gif, .bmp, .tiff, .webp, .svg + 15+ more
-Documents	.txt, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .md + 25+ more
-Programming	.py, .js, .java, .c, .cpp, .go, .rs, .html, .css + 60+ more
-Compressed	.zip, .rar, .7z, .tar, .gz, .bz2, .xz + 30+ more
-Others	Any file type not matching above categories
+## 📁 File Categories
+
+|Category|File Types|
+|---|---|
+|**Videos**|.mp4, .mkv, .avi, .mov, .wmv, .flv, .webm + 20+ more|
+|**Audio**|.mp3, .wav, .flac, .aac, .ogg, .m4a + 20+ more|
+|**Photos**|.jpg, .jpeg, .png, .gif, .bmp, .tiff, .webp, .svg + 15+ more|
+|**Documents**|.txt, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .md + 25+ more|
+|**Programming**|.py, .js, .java, .c, .cpp, .go, .rs, .html, .css + 60+ more|
+|**Compressed**|.zip, .rar, .7z, .tar, .gz, .bz2, .xz + 30+ more|
+|**Others**|Any file type not matching above categories|
+
 
 ---
 
