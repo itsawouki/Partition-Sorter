@@ -11,7 +11,7 @@
 - [Screenshots](#-screenshots)
 - [Installation](#-installation)
 - [Dependencies](#-dependencies)
-- [ IMPORTANT WARNINGS](#️-important-warnings)
+- [IMPORTANT WARNINGS](#️-important-warnings)
 
 ---
 
