@@ -148,11 +148,11 @@ pnsr
 ### 🚨 **DO NOT DELETE THE APPLICATION FILES**
 
 **CRITICAL:** The `pnsr.py` file and `data.json` configuration file contain your partition settings and preferences.
+
 **If you delete `pnsr.py`**, the application will stop working    
 **If you delete `data.json`**, you will lose all saved partition configurations     
 These files are the **MAIN APPLICATION FILES** - keep them safe!
         If you delete pnsr.py, the application will stop working
 
-        If you delete data.json, you will lose all saved partition configurations
-
-        These files are the MAIN APPLICATION FILES - keep them safe!
+If you delete data.json, you will lose all saved partition configurations
+These files are the MAIN APPLICATION FILES - keep them safe!
