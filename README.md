@@ -214,14 +214,6 @@ automatically on first run.
 Do not delete `data.json` — it holds your partition list and auto-sort flags. It is
 machine-specific, so it should not be committed to version control.
 
-## Screenshots
-
-(/image.png)
-
-## License
-
-<!-- TODO: add your license, e.g. MIT. -->
-_License not yet specified._
 
 ## Disclaimer
 
