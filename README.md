@@ -216,7 +216,7 @@ machine-specific, so it should not be committed to version control.
 
 ## Screenshots
 
-['image.png']
+(/image.png)
 
 ## License
 
