@@ -216,8 +216,7 @@ machine-specific, so it should not be committed to version control.
 
 ## Screenshots
 
-<!-- TODO: add your screenshots here and remove this line. -->
-_Screenshots coming soon._
+{image.png}
 
 ## License
 
