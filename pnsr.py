@@ -25,7 +25,7 @@ audio_formats = ('.mp3','.wav','.flac','.aac','.ogg','.m4a','.wma','.opus','.ac3
 
 video_formats = ('.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.webm','.m4v', '.mpg', '.mpeg','.mts', '.m2ts','.3gp', '.3g2', '.ogv', '.divx','.vob', '.ts',  '.rm',  '.rmvb','.asf', '.f4v', '.f4p', '.f4a', '.f4b')
 
-compress_formats = ('.zip', '.exe'     '.rar',      '.7z',       '.tar',      '.gz',       '.tgz',      '.bz2',      '.tbz2',     '.xz',       '.txz',      '.zst',      '.tar.zst',  '.lz',       '.lzma',     '.lzo',      '.gz',       '.bz',       '.Z',        '.zst',      '.ar',       '.cpio',     '.shar',     '.iso',      '.img',      '.dmg',      '.cab',      '.msi',      '.deb',      '.rpm',      '.pkg',      '.apk',      '.jar',      '.war',      '.ear',      '.egg',      '.whl',      '.snap',     '.appimage', '.flatpak','.squashfs')
+compress_formats = ('.zip', '.exe', '.rar', '.7z', '.tar', '.gz', '.tgz', '.bz2', '.tbz2', '.xz', '.txz', '.zst', '.tar.zst', '.lz', '.lzma', '.lzo', '.bz', '.Z', '.ar', '.cpio', '.shar', '.iso', '.img', '.dmg', '.cab', '.msi', '.deb', '.rpm', '.pkg', '.apk', '.jar', '.war', '.ear', '.egg', '.whl', '.snap', '.appimage', '.flatpak', '.squashfs')
 
 programming_formats = ('.py','.pyw','.pyx','.ipynb','.js','.ts','.jsx','.tsx','.vue','.svelte','.c','.cpp','.cc','.cxx','.h','.hpp','.hxx','.cs','.csx','.java','.class','.jar','.go','.rs','.rb','.erb','.php','.php3','.php4','.php5','.phtml','.swift','.kt','.kts','.dart','.lua','.pl','.pm','.sh','.bash','.zsh','.fish','.ps1','.sql','.r','.rmd','.m','.scala','.sc','.hs','.lhs','.asm','.s','.json','.yaml','.yml','.toml','.ini','.cfg','.conf','.xml','.cmake','.mk','.gradle','.groovy','Dockerfile','.vb','.vbs','.f95','.f90','.f','.scm','.clj','.elm','.ex','.exs','.erl','.cr','.nim','.zig')
 
@@ -33,6 +33,33 @@ document_formats = ('.txt','.url', '.rtf', '.log', '.md', '.tex', '.doc', '.docx
 
 photo_formats = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.tif', '.webp', '.svg', '.ico', '.heic', '.heif', '.raw', '.cr2', '.nef', '.arw', '.dng', '.orf', '.rw2', '.psd', '.xcf', '.ai', '.eps', '.indd', '.jfif', '.pjpeg', '.pjp', '.avif', '.jxl')
 
+
+
+# Returns a non-colliding path inside `directory` for `filename` by appending (1), (2), ...
+COMPOUND_EXTENSIONS = (".tar.gz", ".tar.bz2", ".tar.xz", ".tar.zst", ".tar.lzma")
+
+
+def split_name(filename):
+    lowered = filename.lower()
+    for ext in COMPOUND_EXTENSIONS:
+        if lowered.endswith(ext):
+            return filename[: -len(ext)], ext
+    return os.path.splitext(filename)
+
+
+def unique_destination(directory, filename):
+    base, ext = split_name(filename)
+    candidate = filename
+    counter = 1
+    while os.path.exists(os.path.join(directory, candidate)):
+        candidate = f"{base} ({counter}){ext}"
+        counter += 1
+    return os.path.join(directory, candidate)
+
+
+def move_file(item_path, destination_dir):
+    target = unique_destination(destination_dir, os.path.basename(item_path))
+    shutil.move(item_path, target)
 
 
 #json load
@@ -139,43 +166,43 @@ def SortFiles():
 
                     if item.lower().endswith(photo_formats):
                         destination = Linuxpath + "/Files/Photos"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         photoCounter += 1
 
                     elif item.lower().endswith(audio_formats):
                         destination = Linuxpath + "/Files/Audio"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         audioCounter += 1
 
                     elif item.lower().endswith(video_formats):
                         destination = Linuxpath + "/Files/Videos"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         videoCounter += 1
 
                     elif item.lower().endswith(document_formats):
                         destination = Linuxpath + "/Files/Documents"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         documentCounter += 1
 
                     elif item.lower().endswith(programming_formats):
                         destination = Linuxpath + "/Files/Programming"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         programmingCounter += 1
 
                     elif item.lower().endswith(compress_formats):
                         destination = Linuxpath + "/Files/Compressed"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         compressCounter += 1
 
                     else:
                         destination = Linuxpath + "/Files/Others"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         otherCounter += 1
             else:
                 continue
         print(Fore.GREEN + "------------------STATUS------------------" + Fore.WHITE)
         print(
-            f"video transferred: {Fore.GREEN + str(videoCounter) + Fore.WHITE}\naudio transferred: {Fore.GREEN + str(audioCounter) + Fore.WHITE}\nphoto transferred: {Fore.GREEN + str(photoCounter) + Fore.WHITE}\ndocument transferred: {Fore.GREEN + str(documentCounter) + Fore.WHITE}\ncompress transferred: {Fore.GREEN + str(compressCounter) + Fore.WHITE}\nprogramming file transferred: {Fore.GREEN + str(programmingCounter) + Fore.WHITE}\nother transferred: {Fore.GREEN + str(otherCounter) + Fore.WHITE}\ntotal transferred: {Fore.GREEN}{videoCounter + audioCounter + programmingCounter + photoCounter + compressCounter + documentCounter}{Fore.WHITE}")
+            f"video transferred: {Fore.GREEN + str(videoCounter) + Fore.WHITE}\naudio transferred: {Fore.GREEN + str(audioCounter) + Fore.WHITE}\nphoto transferred: {Fore.GREEN + str(photoCounter) + Fore.WHITE}\ndocument transferred: {Fore.GREEN + str(documentCounter) + Fore.WHITE}\ncompress transferred: {Fore.GREEN + str(compressCounter) + Fore.WHITE}\nprogramming file transferred: {Fore.GREEN + str(programmingCounter) + Fore.WHITE}\nother transferred: {Fore.GREEN + str(otherCounter) + Fore.WHITE}\ntotal transferred: {Fore.GREEN}{videoCounter + audioCounter + programmingCounter + photoCounter + compressCounter + documentCounter + otherCounter}{Fore.WHITE}")
         time.sleep(10)
     elif SelectPartition==2:
         global LinuxPartout
@@ -206,43 +233,43 @@ def SortFiles():
 
                     if item.lower().endswith(photo_formats):
                         destination = Linuxpath + "/Files/Photos"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         photoCounter += 1
 
                     elif item.lower().endswith(audio_formats):
                         destination = Linuxpath + "/Files/Audio"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         audioCounter += 1
 
                     elif item.lower().endswith(video_formats):
                         destination = Linuxpath + "/Files/Videos"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         videoCounter += 1
 
                     elif item.lower().endswith(document_formats):
                         destination = Linuxpath + "/Files/Documents"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         documentCounter += 1
 
                     elif item.lower().endswith(programming_formats):
                         destination = Linuxpath + "/Files/Programming"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         programmingCounter += 1
 
                     elif item.lower().endswith(compress_formats):
                         destination = Linuxpath + "/Files/Compressed"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         compressCounter += 1
 
                     else:
                         destination = Linuxpath + "/Files/Others"
-                        shutil.move(item_path, destination)
+                        move_file(item_path, destination)
                         otherCounter += 1
 
                 # Move to Others
                 clear_screen()
                 print(Fore.GREEN + "------------------STATUS------------------" + Fore.WHITE)
-                print(f"video transferred: {Fore.GREEN+str(videoCounter)+Fore.WHITE}\naudio transferred: {Fore.GREEN+str(audioCounter)+Fore.WHITE}\nphoto transferred: {Fore.GREEN+str(photoCounter)+Fore.WHITE}\ndocument transferred: {Fore.GREEN+str(documentCounter)+Fore.WHITE}\ncompress transferred: {Fore.GREEN+str(compressCounter)+Fore.WHITE}\nprogramming file transferred: {Fore.GREEN+str(programmingCounter)+Fore.WHITE}\nother transferred: {Fore.GREEN+str(otherCounter)+Fore.WHITE}\ntotal transferred: {Fore.GREEN}{videoCounter+audioCounter+programmingCounter+photoCounter+compressCounter+documentCounter}{Fore.WHITE}")
+                print(f"video transferred: {Fore.GREEN+str(videoCounter)+Fore.WHITE}\naudio transferred: {Fore.GREEN+str(audioCounter)+Fore.WHITE}\nphoto transferred: {Fore.GREEN+str(photoCounter)+Fore.WHITE}\ndocument transferred: {Fore.GREEN+str(documentCounter)+Fore.WHITE}\ncompress transferred: {Fore.GREEN+str(compressCounter)+Fore.WHITE}\nprogramming file transferred: {Fore.GREEN+str(programmingCounter)+Fore.WHITE}\nother transferred: {Fore.GREEN+str(otherCounter)+Fore.WHITE}\ntotal transferred: {Fore.GREEN}{videoCounter+audioCounter+programmingCounter+photoCounter+compressCounter+documentCounter+otherCounter}{Fore.WHITE}")
                 time.sleep(5)
 
             except():
