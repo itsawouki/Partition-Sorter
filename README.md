@@ -1,159 +1,128 @@
- Partition Sorter - Intelligent File Organizer
-[![Linux Support](https://img.shields.io/badge/Linux-Supported-green.svg)](https://www.linux.org)
-[![Python 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-**Partition Sorter** is a powerful terminal-based file organization tool that automatically sorts files into categorized folders based on their type. Perfect for cleaning up messy drives and organizing your data efficiently.
+Partition Sorter
+Intelligent file organizer for Linux
+Partition Sorter is a terminal-based file organization tool that sorts the files in your drives and partitions into categorized folders based on their type. It is built for cleaning up a messy download folder, a media drive, or a partition full of unsorted files.
+pnsr
 
----
+Table of Contents
+    • Description
+    • Features
+    • File Categories
+    • Requirements
+    • Installation
+    • Usage
+    • Configuration
+    • Screenshots
+    • License
 
-## 📋 Table of Contents
-- [Description](#-description)
-- [Features](#-features)
-- [Screenshots](#-screenshots)
-- [Installation](#-installation)
+Description
+Partition Sorter walks the top level of a partition (or any folder you add as a "partition") and moves each file into a subfolder based on its extension:
+    • Detects mounted partitions automatically via lsblk
+    • Lets you register extra folders as partitions
+    • Sorts into 7 categories, covering 230 file extensions
+    • Sorts one partition or all of them at once
+    • Never overwrites an existing file — collisions are renamed instead
+    • Remembers your configuration between runs
+Folders are created on demand inside the target partition:
+/mnt/data
+├── Files
+│   ├── Photos
+│   ├── Videos
+│   ├── Audio
+│   ├── Documents
+│   ├── Programming
+│   ├── Compressed
+│   └── Others
+└── your_unsorted_files_here...
+Features
+    • Automatic partition detection — scans mounted partitions with lsblk and lists them
+    • Smart categorization — 230 extensions across 7 categories
+    • Two sorting modes
+        ◦ Automatic — sorts every partition you have enabled
+        ◦ Manual — pick a specific partition to sort
+    • Collision-safe renaming — if the destination already has a file with the same name, the incoming file is renamed name (1).jpg, name (2).jpg, and so on. Existing files are never overwritten or deleted.
+    • Persistent configuration — your partitions and auto-sort flags are saved
+    • Colorful terminal UI — color-coded menus and status output
+File Categories
+Category	Recognized examples	Count
+Videos	.mp4 .mkv .avi .mov .wmv .flv .webm .m4v .mpeg .ts + 15 more	25
+Audio	.mp3 .wav .flac .aac .ogg .m4a .opus .wma + 17 more	25
+Photos	.jpg .jpeg .png .gif .bmp .tiff .webp .svg .heic .raw + 19 more	29
+Documents	.txt .pdf .doc .docx .xls .xlsx .ppt .md .csv .epub + 24 more	34
+Programming	.py .js .ts .java .c .cpp .go .rs .rb .php + 70 more	80
+Compressed	.zip .rar .7z .tar .gz .bz2 .xz .zst .exe .iso + 29 more	39
+Others	anything that does not match the above	—
 
----
-
-## 🎯 Description
-**Partition Sorter** helps you maintain a clean and organized file system by automatically moving files into categorized folders. The application:
-- Detects mounted partitions on your Linux system
-- Allows manual or automatic partition selection
-- Sorts files into 7 categories: Videos, Audio, Photos, Documents, Compressed files, Programming files, and Others
-- Remembers your preferences using a local JSON database
-- Features both automatic and manual sorting modes
-
----
-
-## ✨ Features
-- **Automatic Partition Detection** - Scans and lists all mounted partitions
-- **Smart File Categorization** - Supports 100+ file formats across 7 categories
-- **Two Sorting Modes**:
-  - *Automatic* - Sort all selected partitions at once
-  - *Manual* - Choose specific partitions to sort
-- **Persistent Configuration** - Saves your partition preferences in `data.json`
-- **Colorful Terminal UI** - Easy-to-read interface with color coding
-- **No Root Required** - Runs with user permissions for safety
-
----
-
-## 📁 File Categories
-
-|Category|File Types|
-|---|---|
-|**Videos**|.mp4, .mkv, .avi, .mov, .wmv, .flv, .webm + 20+ more|
-|**Audio**|.mp3, .wav, .flac, .aac, .ogg, .m4a + 20+ more|
-|**Photos**|.jpg, .jpeg, .png, .gif, .bmp, .tiff, .webp, .svg + 15+ more|
-|**Documents**|.txt, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .md + 25+ more|
-|**Programming**|.py, .js, .java, .c, .cpp, .go, .rs, .html, .css + 60+ more|
-|**Compressed**|.zip, .rar, .7z, .tar, .gz, .bz2, .xz + 30+ more|
-|**Others**|Any file type not matching above categories|
-
-
----
-
-## 📸 Screenshots
-
-![App Screenshot](./image.png) ![App Screenshot](./swappy-20260506-002048.png)
-## 📦 Installation:
-
-### 1. Clone the application
-
-```bash
-git clone https://github.com/itsawouki/Partition-Sorter.git && cd Partition-Sorter
-```
-
-### 2. install colorama
-
-Choose your operating system:
-#### **Arch Linux**
-
-```bash
+Categories are checked in the order above, so a file that matches more than one category lands in the first match. For example .jar is both compressed and programming, and is sorted into Programming.
+Requirements
+    • Linux (partition detection relies on lsblk)
+    • Python 3.10 or newer — the app uses a match/case statement
+    • colorama
+Check your Python version:
+python3 --version
+Installation
+1. Clone the repository
+git clone https://github.com/itsawouki/Partition-Sorter.git
+cd Partition-Sorter
+2. Install colorama
+Choose the command for your distribution:
+# Arch Linux
 sudo pacman -S python-colorama
-```
 
-
-#### **Debian/Ubuntu/Linux Mint**
-
-```bash
+# Debian / Ubuntu / Linux Mint
 sudo apt install python3-colorama
-```
 
-#### **Fedora**
-
-```bash
+# Fedora
 sudo dnf install python3-colorama
-```
 
-#### **RHEL/CentOS**
-
-```bash
+# RHEL / CentOS
 sudo yum install python3-colorama
-```
 
-#### **openSUSE**
-
-```bash
+# openSUSE
 sudo zypper install python3-colorama
-```
-
-#### **Other Linux distros or if package not available**
-
-```bash
-# Using pip (user installation)
+If your distribution has no package, or you prefer pip:
+# user install (recommended)
 pip3 install --user colorama
 
-# Or system-wide (not recommended)
+# or system-wide (not recommended)
 sudo pip3 install colorama
-
-# Or using pipx (recommended for user apps)
-pipx install colorama
-```
-
-### 3. Shell Setup
-
-The `pnsr` command should work immediately. If not, add this to your shell config:
-#### **For Bash users** (~/.bashrc)
-
-```bash
-echo 'alias pnsr="pnsr"' >> ~/.bashrc
+3. Create the pnsr command
+This installs a launcher into ~/.local/bin, so no root access is required. Run it from inside the cloned repository:
+mkdir -p ~/.local/bin
+printf '#!/bin/sh\nexec python3 %s/pnsr.py "$@"\n' "$PWD" > ~/.local/bin/pnsr
+chmod +x ~/.local/bin/pnsr
+The launcher stores the absolute path to your clone, so it keeps working from any directory.
+Make sure ~/.local/bin is on your PATH:
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc   # or ~/.zshrc
 source ~/.bashrc
-```
-
-#### **For Zsh users** (~/.zshrc)
-
-```bash
-echo 'alias pnsr="pnsr"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-#### **For Fish users** (~/.config/fish/config.fish)
-
-```bash
-echo 'alias pnsr="pnsr"' >> ~/.config/fish/config.fish
-source ~/.config/fish/config.fish
-```
-
-## Usage
-
-Simply type:
-
-```bash
+Verify it works:
+which pnsr
 pnsr
-```
-
----
-
-
-## **IMPORTANT WARNINGS**
-
-### 🚨 **DO NOT DELETE THE APPLICATION FILES**
-
-**CRITICAL:** The `pnsr.py` file and `data.json` configuration file contain your partition settings and preferences.
-
-**If you delete `pnsr.py`**, the application will stop working    
-**If you delete `data.json`**, you will lose all saved partition configurations     
-These files are the **MAIN APPLICATION FILES** - keep them safe!
-        If you delete pnsr.py, the application will stop working
-
-If you delete data.json, you will lose all saved partition configurations
-These files are the MAIN APPLICATION FILES - keep them safe!
+Updating
+cd /path/to/Partition-Sorter
+git pull
+The launcher points at your clone, so a git pull is all you need — no reinstall.
+Usage
+Run:
+pnsr
+The main menu:
+1: Show partitions       list the partitions the app knows about
+2: Detect partitions     scan for mounted partitions and add them
+3: Manual partitioning   register a mounted path by hand
+4: Sort Files            sort a partition
+5: Settings              manage auto-sort flags, folders, and partitions
+6: Quit
+A typical first run:
+    1. 2 — Detect partitions to add your mounted partitions.
+    2. 5 — Settings → 2 to add a plain folder (such as ~/Downloads) as a partition.
+    3. 4 — Sort Files → 2, then pick the partition number you want.
+Then in Settings → 1 you can enable auto-sort for a partition, which means option 4 → 1 (Automatic) will sort it along with the others.
+Configuration
+Your configuration is stored in a file called data.json, which is created automatically on first run.
+[!IMPORTANT] data.json is created in the current working directory, not next to the script. If you run pnsr from different folders, each folder gets its own separate configuration. Pick one directory to run it from, or add a cd to your launcher.
+Do not delete data.json — it holds your partition list and auto-sort flags. It is machine-specific, so it should not be committed to version control.
+Screenshots
+Screenshots coming soon.
+License
+License not yet specified.
+Disclaimer
+Partition Sorter moves files. Make a backup of anything important before running it on a partition for the first time. The app does not delete files, but a file moved into the wrong category is still a file you have to find again.
